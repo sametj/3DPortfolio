@@ -10,9 +10,7 @@ import { useFrame } from "@react-three/fiber";
 
 function Experience(props, ref) {
 	const { section } = props;
-	useFrame(() => {
-		console.log(section);
-	});
+
 	return (
 		<>
 			<ambientLight intensity={0.2} />

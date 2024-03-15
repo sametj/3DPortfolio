@@ -1,4 +1,10 @@
-import { CameraControls, Scroll, useScroll } from "@react-three/drei";
+import {
+	CameraControls,
+	OrbitControls,
+	Scroll,
+	useCamera,
+	useScroll,
+} from "@react-three/drei";
 import React, { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 
@@ -49,10 +55,20 @@ export default function App() {
 	return (
 		<>
 			<Perf />
-			<CameraControls
+
+			<OrbitControls
+				makeDefault
+				enableZoom={false}
+				enablePan={false}
+				enableRotate={false}
+				enableDamping
+				dampingFactor={0.2}
+				rotateSpeed={0.5}
+				zoomSpeed={0.5}
+				panSpeed={0.5}
 				ref={cameraRef}
-				enabled={false}
 			/>
+
 			<color
 				attach='background'
 				args={["#191920"]}
