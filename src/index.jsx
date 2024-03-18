@@ -7,7 +7,7 @@ import { motion, MotionConfig } from "framer-motion";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 const cameraSettings = {
-	fov: 15,
+	fov: 45,
 	near: 0.1,
 	far: 1000,
 	position: [0, 4, 14],

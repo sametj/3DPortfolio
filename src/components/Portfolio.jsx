@@ -3,34 +3,20 @@ import { useCamera, useGLTF } from "@react-three/drei";
 import Experience from "./Experience";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import Camera from "./Camera";
 
 export default function Portfolio(props) {
 	const { nodes, materials } = useGLTF("/models/Portfolio.glb");
 	const experienceBoxRef = useRef();
+	const introBoxRef = useRef();
+	const landingBoxRef = useRef();
+	const aboutMeBoxRef = useRef();
+	const simracingBoxRef = useRef();
+	const projectsBoxRef = useRef();
+	const musicBoxRef = useRef();
 
-	// useFrame((state) => {
-	// 	const cameraPosition = new THREE.Vector3();
-	// 	cameraPosition.setFromMatrixPosition(
-	// 		experienceBoxRef.current.matrixWorld
-	// 	);
-
-	// 	cameraPosition.y += 0.5;
-	// 	cameraPosition.z += 3.7;
-	// 	cameraPosition.x += 5;
-
-	// 	const cameraTarget = new THREE.Vector3();
-	// 	cameraTarget.setFromMatrixPosition(
-	// 		experienceBoxRef.current.matrixWorld
-	// 	);
-	// 	cameraTarget.y -= 1;
-	// 	cameraTarget.z -= 6;
-	// 	cameraTarget.x -= 16;
-
-	// 	state.camera.lookAt(cameraTarget);
-	// 	state.camera.zoom = 1;
-
-	// 	state.camera.position.lerp(cameraPosition, 0.1);
-	// });
+	// Camera(aboutMeBoxRef, -1.5, 0.2, 1, 1, 0, 0.4);
+	Camera(introBoxRef, 0, 0.4, 3, -1, 0, 1.2);
 
 	return (
 		<group
@@ -443,6 +429,7 @@ export default function Portfolio(props) {
 					rotation={[-Math.PI, 0.926, -Math.PI]}
 				/>
 				<group
+					ref={landingBoxRef}
 					name='Empty'
 					position={[-2.367, 22.438, 5.648]}
 					rotation={[0, Math.PI / 2, 0]}
@@ -1064,6 +1051,7 @@ export default function Portfolio(props) {
 					rotation={[Math.PI, 0, Math.PI]}
 				/>
 				<group
+					ref={aboutMeBoxRef}
 					name='AboutMeBox'
 					position={[-2.154, 1.747, -3.076]}
 					scale={[2.536, 1.647, 1.92]}
@@ -1075,21 +1063,25 @@ export default function Portfolio(props) {
 					scale={[2.691, 1.647, 1.251]}
 				/>
 				<group
+					ref={introBoxRef}
 					name='IntroBox'
 					position={[-2.154, 1.684, 1.932]}
 					scale={[2.536, 1.621, 2.644]}
 				/>
 				<group
+					ref={musicBoxRef}
 					name='MusicBox'
 					position={[-2.03, 5.641, 0.582]}
 					scale={[2.691, 1.647, 1.432]}
 				/>
 				<group
+					ref={projectsBoxRef}
 					name='ProjectsBox'
 					position={[-3.271, 5.641, -3.076]}
 					scale={[1.465, 1.647, 1.92]}
 				/>
 				<group
+					ref={simracingBoxRef}
 					name='SimracingBox'
 					position={[3.284, 1.314, 1.932]}
 					scale={[1.721, 1.212, 2.644]}
