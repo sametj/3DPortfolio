@@ -1,92 +1,47 @@
-import {
-	CameraControls,
-	OrbitControls,
-	Scroll,
-	useCamera,
-	useScroll,
-} from "@react-three/drei";
+import { Scroll, useScroll } from "@react-three/drei";
 import React, { useRef, useState, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
-
-import { gsap } from "gsap";
-
 import { Perf } from "r3f-perf";
 import { UI } from "./components/UI/UI";
 import Experience from "./components/Experience";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { ScrollControls } from "@react-three/drei";
+import { motion, MotionConfig } from "framer-motion";
+import { gsap } from "gsap";
+
+const cameraSettings = {
+	fov: 15,
+	near: 0.1,
+	far: 1000,
+	position: [0, 3, 14],
+};
 
 export default function App() {
 	const [section, setSection] = useState(0);
-	const cameraRef = useRef();
-	const experienceRef = useRef();
-	const data = useScroll();
-	const lastScroll = useRef(0);
-	const isAnimating = useRef(false);
-	data.fill.classList.add("top-0");
-	data.fill.classList.add("absolute");
-
-	useEffect(() => {
-		gsap.to(data.el, {
-			duration: 1,
-			scrollTop: section * data.el.scrollHeight,
-			onStart: () => (isAnimating.current = true),
-			onComplete: () => (isAnimating.current = false),
-		});
-	}, [section]);
-
-	useFrame(() => {
-		data.scroll.current > 0.5 ? setSection(1) : setSection(0);
-		if (isAnimating) {
-			lastScroll.current = data.scroll.current;
-			return;
-		}
-		const current = Math.floor(data.scroll.current * data.pages);
-		if (data.scroll.current > lastScroll.current && current === 0) {
-			setSection(1);
-		}
-		if (
-			data.scroll.current < lastScroll.current &&
-			data.scroll.current < 1 / (data.pages - 1)
-		) {
-			setSection(0);
-		}
-		lastScroll.current = data.scroll.current;
-	});
 
 	return (
 		<>
-			<Perf />
-
-			<OrbitControls
-				makeDefault
-				enableZoom={false}
-				enablePan={false}
-				enableRotate={false}
-				enableDamping
-				dampingFactor={0.2}
-				rotateSpeed={0.5}
-				zoomSpeed={0.5}
-				panSpeed={0.5}
-				ref={cameraRef}
-			/>
-
-			<color
-				attach='background'
-				args={["#191920"]}
-			/>
-			<fog
-				attach='fog'
-				args={["#191920", 20, 42]}
-			/>
-
-			<Scroll html>
-				<UI />
-			</Scroll>
-			<Scroll>
-				<Experience
-					ref={experienceRef}
-					section={section}
+			<Canvas
+				shadows
+				camera={cameraSettings}>
+				<color
+					attach='background'
+					args={["#9A85E7"]}
 				/>
-			</Scroll>
+				<fog
+					attach='fog'
+					args={["#9A85E7", 12, 35]}
+				/>
+				<ScrollControls
+					pages={4}
+					damping={1}>
+					<Scroll html>
+						<UI />
+					</Scroll>
+					<Scroll>
+						<Experience section={section} />
+					</Scroll>
+				</ScrollControls>
+			</Canvas>
 		</>
 	);
 }
