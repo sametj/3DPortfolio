@@ -13,16 +13,16 @@ function Experience(props) {
 	return (
 		<>
 			<group
-				position={[0, -2, -5.8]}
+				position={[0, -2, 0]}
 				scale={0.4}>
 				<LandingRoom
 					rotation={[0, Math.PI / 5, 0]}
-					position-z={-5}
-					position-x={3}
+					position-z={-12}
+					position-x={2}
 				/>
 				<Environment preset='apartment' />
 				<mesh
-					position-z={0}
+					position-z={-12}
 					rotation-x={-Math.PI / 2}>
 					<planeGeometry args={[50, 30]} />
 					<MeshReflectorMaterial
@@ -39,13 +39,13 @@ function Experience(props) {
 				</mesh>
 			</group>
 			<group
-				position={[-2, -5, 0]}
+				position={[-2, -5.5, 0]}
 				rotation={[0, 0, 0]}
 				scale={[1, 1, 1]}>
 				<Environment preset='warehouse' />
 				<AboutMe rotation={[0, Math.PI / 4, 0]} />
 				<mesh
-					position-z={-4}
+					position-z={-5}
 					rotation-x={-Math.PI / 2}>
 					<planeGeometry args={[20, 20]} />
 					<MeshReflectorMaterial
