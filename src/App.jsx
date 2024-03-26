@@ -7,6 +7,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { motion, MotionConfig } from "framer-motion";
 import { gsap } from "gsap";
+import { Html } from "@react-three/drei";
 
 const cameraSettings = {
 	fov: 15,
@@ -16,17 +17,17 @@ const cameraSettings = {
 };
 
 export default function App() {
-	const [section, setSection] = useState(0);
-
 	return (
 		<>
 			<Canvas
+				dpr={[1, 2]}
 				shadows
 				camera={cameraSettings}>
 				<color
 					attach='background'
 					args={["#9A85E7"]}
 				/>
+				<Perf />
 				<fog
 					attach='fog'
 					args={["#9A85E7", 12, 35]}
@@ -38,7 +39,7 @@ export default function App() {
 						<UI />
 					</Scroll>
 					<Scroll>
-						<Experience section={section} />
+						<Experience />
 					</Scroll>
 				</ScrollControls>
 			</Canvas>
