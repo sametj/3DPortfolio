@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Outlines, useGLTF } from "@react-three/drei";
+import React, { useEffect, useRef, useState } from "react";
+import { Outlines, useGLTF, useVideoTexture } from "@react-three/drei";
 import {
 	EffectComposer,
 	Outline,
@@ -8,32 +8,20 @@ import {
 } from "@react-three/postprocessing";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useContext } from "react";
 
 export default function ProjectsPc(props) {
 	const { nodes, materials } = useGLTF("/models/ProjectsPc.glb");
-	const [hovered, setHovered] = useState(null);
-	const [activeRef, setActiveRef] = useState(null);
+	const { video } = props;
+	const [videoSrc, setVideoSrc] = useState(video);
 
-	const mainMaterial = useRef();
+	useEffect(() => {
+		setVideoSrc(video);
+	}, [video]);
 
-	const demoRef = useRef();
-	const githubRef = useRef();
+	const videos = useVideoTexture(videoSrc);
+	videos.flipY = false;
 
-	const handlePointerOver = (e) => {
-		e.stopPropagation();
-		document.querySelector("#root").style.cursor = "pointer";
-		setHovered(true);
-		mainMaterial.current = e.object.material;
-		e.object.material = new THREE.MeshBasicMaterial({
-			color: "green",
-		});
-	};
-	const handlePointerOut = (e) => {
-		e.stopPropagation();
-		document.querySelector("#root").style.cursor = "auto";
-		setHovered(false);
-		e.object.material = mainMaterial.current;
-	};
 	return (
 		<group
 			{...props}
@@ -55,9 +43,6 @@ export default function ProjectsPc(props) {
 					rotation={[Math.PI / 2, 0, 0]}
 					scale={0.594}>
 					<mesh
-						ref={githubRef}
-						onPointerOver={handlePointerOver}
-						onPointerOut={handlePointerOut}
 						castShadow
 						receiveShadow
 						geometry={nodes.Plane005.geometry}
@@ -77,9 +62,6 @@ export default function ProjectsPc(props) {
 					rotation={[Math.PI / 2, 0, 0]}
 					scale={0.594}>
 					<mesh
-						ref={demoRef}
-						onPointerOver={handlePointerOver}
-						onPointerOut={handlePointerOut}
 						castShadow
 						receiveShadow
 						geometry={nodes.Plane008.geometry}
@@ -105,10 +87,13 @@ export default function ProjectsPc(props) {
 				castShadow
 				receiveShadow
 				geometry={nodes.ProjectPc001_Baked001.geometry}
-				material={materials.Screen}
 				position={[2.149, 1.108, -1.403]}
-				rotation={[-Math.PI, 1.543, 0]}
-			/>
+				rotation={[-Math.PI, 1.543, 0]}>
+				<meshStandardMaterial
+					map={videos}
+					toneMapped={false}
+				/>
+			</mesh>
 			<mesh
 				castShadow
 				receiveShadow

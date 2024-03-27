@@ -4,6 +4,7 @@ import React, {
 	useEffect,
 	useLayoutEffect,
 	useState,
+	useContext,
 } from "react";
 import { motion } from "framer-motion-3d";
 import { Environment, MeshReflectorMaterial } from "@react-three/drei";
@@ -14,11 +15,12 @@ import { Scroll, useScroll } from "@react-three/drei";
 import AboutMe from "./AboutMe";
 import ProjectsPc from "./ProjectsPC";
 import FloorPlane from "./FloorPlane";
+import { VideoContext } from "../App";
 
 function Experience(props) {
 	const [section, setSection] = useState(0);
 	document.querySelector("#root").classList.add("touch-none");
-
+	const video = useContext(VideoContext);
 	const camera = useThree((state) => state.camera);
 	window.addEventListener("mousemove", (e) => {
 		const x = e.clientX / window.innerWidth;
@@ -63,6 +65,7 @@ function Experience(props) {
 				position={[-1, -8.7, 0]}
 				scale={0.7}>
 				<ProjectsPc
+					video={video}
 					scale={1}
 					position-x={0}
 					position-y={1}

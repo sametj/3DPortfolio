@@ -7,6 +7,8 @@ import { CardMedia } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PreviewIcon from "@mui/icons-material/Preview";
 import Button from "@mui/material/Button";
+import { useContext, createContext, useState } from "react";
+import { VideoContext } from "../../App";
 
 export const Section = (props) => {
 	const { children } = props;
@@ -45,11 +47,8 @@ const WelcomeSection = () => {
 			<Box
 				height={200}
 				width={550}
-				my={4}
 				display='flex'
 				alignItems='center'
-				gap={4}
-				p={2}
 				sx={{
 					border: "2px solid white",
 					padding: "8px",
@@ -69,10 +68,8 @@ const AboutSection = () => {
 	return (
 		<Section id='aboutSection'>
 			<Box
-				my={4}
 				display='flex'
 				alignItems='center'
-				p={4}
 				sx={{
 					border: "2px solid white",
 					padding: "18px",
@@ -114,14 +111,17 @@ const AboutSection = () => {
 };
 
 const Project = (props) => {
+	const setVideo = useContext(VideoContext);
+
 	return (
 		<>
 			<Card
+				onClick={() => setVideo(props.video.toString())}
 				sx={{
 					display: "flex",
 					minWidth: 600,
 					maxHeight: 300,
-					backgroundColor: "grey",
+					backgroundColor: "orange",
 					padding: 2,
 					borderRadius: 4,
 					boxShadow: 4,
@@ -157,13 +157,22 @@ const Project = (props) => {
 							justifySelf: "center",
 						}}>
 						<Typography
-							variant='h5'
+							variant='h4'
 							component='div'>
 							{props.title}
 						</Typography>
 						<Typography
+							variant='h5'
+							sx={{
+								textDecoration: "underline",
+								marginTop: 2,
+							}}>
+							Tech Stack
+						</Typography>
+						<Typography
 							variant='body2'
-							component='p'>
+							component='span'
+							sx={{ marginTop: 1, fontSize: 25 }}>
 							{props.description}
 						</Typography>
 					</CardContent>
@@ -199,13 +208,11 @@ const Project = (props) => {
 		</>
 	);
 };
-const ProjectsSection = () => {
+const ProjectsSection = (props) => {
 	return (
 		<Section id='projectsSection'>
 			<Box
-				my={4}
 				display='flex'
-				p={4}
 				sx={{
 					flexDirection: "row",
 					border: "2px solid white",
@@ -224,13 +231,23 @@ const ProjectsSection = () => {
 					boxShadow: "2px 2px 4px white",
 					flexWrap: "wrap",
 					overflow: "scroll",
+					overflowX: "hidden",
 				}}>
 				<Project
 					title='ActionAtlas: A Full Stack todolist'
-					description='Description 1'
+					description='HTML | CSS | JavaScript | Node | Express | MongoDB'
 					image='/images/actionAtlas.png'
-					previewLink='https://actionatlas.netlify.app/'
+					previewLink='https://action-atlas.vercel.app'
 					githubLink='https://github.com/sametj/ActionAtlas'
+					video='/videos/test2.mp4'
+				/>
+
+				<Project
+					title='ActionAtlas: A Full Stack todolist'
+					description='HTML | CSS | JavaScript | Node | Express | MongoDB'
+					image='/images/actionAtlas.png'
+					previewLink='https://action-atlas.vercel.app'
+					video='/videos/test1.mp4'
 				/>
 			</Box>
 		</Section>

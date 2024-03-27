@@ -1,13 +1,12 @@
-import { Scroll, useScroll } from "@react-three/drei";
-import React, { useRef, useState, useEffect } from "react";
+import { Scroll } from "@react-three/drei";
+import React, { useContext, useState, createContext } from "react";
 import { Perf } from "r3f-perf";
 import { UI } from "./components/UI/UI";
 import Experience from "./components/Experience";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
-import { motion, MotionConfig } from "framer-motion";
-import { gsap } from "gsap";
-import { Html } from "@react-three/drei";
+
+export const VideoContext = createContext();
 
 const cameraSettings = {
 	fov: 15,
@@ -17,6 +16,8 @@ const cameraSettings = {
 };
 
 export default function App() {
+	const [video, setVideo] = useState("/videos/test1.mp4");
+
 	return (
 		<>
 			<Canvas
@@ -36,10 +37,14 @@ export default function App() {
 					pages={4}
 					damping={1}>
 					<Scroll html>
-						<UI />
+						<VideoContext.Provider value={setVideo}>
+							<UI />
+						</VideoContext.Provider>
 					</Scroll>
 					<Scroll>
-						<Experience />
+						<VideoContext.Provider value={video}>
+							<Experience />
+						</VideoContext.Provider>
 					</Scroll>
 				</ScrollControls>
 			</Canvas>
