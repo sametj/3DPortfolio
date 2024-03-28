@@ -15,6 +15,7 @@ import { Scroll, useScroll } from "@react-three/drei";
 import AboutMe from "./AboutMe";
 import ProjectsPc from "./ProjectsPC";
 import FloorPlane from "./FloorPlane";
+import Contact from "./Contact";
 import { VideoContext } from "../App";
 
 function Experience(props) {
@@ -38,7 +39,7 @@ function Experience(props) {
 
 	return (
 		<>
-			<Environment preset='warehouse' />
+			<Environment preset='lobby' />
 			{/* Landing Room */}
 			<group position={[0, -0.95, 0]}>
 				<LandingRoom
@@ -69,6 +70,20 @@ function Experience(props) {
 					scale={1}
 					position-x={0}
 					position-y={1}
+				/>
+				<FloorPlane />
+			</group>
+
+			{/* Contact */}
+			<group
+				position={[0, -12.6, 0]}
+				rotation={[0, 0, 0]}
+				scale={[1, 1, 1]}>
+				<Contact
+					scale={0.3}
+					rotation={[0, Math.PI * 2, 0]}
+					position-z={-6}
+					position-y={0.2}
 				/>
 				<FloorPlane />
 			</group>

@@ -7,8 +7,25 @@ import { CardMedia } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PreviewIcon from "@mui/icons-material/Preview";
 import Button from "@mui/material/Button";
-import { useContext, createContext, useState } from "react";
+import EmailIcon from "@mui/icons-material/Email";
+import Modal from "@mui/material/Modal";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { useContext, useState } from "react";
 import { VideoContext } from "../../App";
+
+const boxStyle = {
+	border: "2px solid white",
+	marginBottom: "200px",
+	borderRadius: "30px",
+	backgroundColor: "rgba(1, 10, 255, 0.1)",
+	backdropFilter: "blur(8px)",
+	textAlign: "center",
+	justifyContent: "center",
+	height: "fit-content",
+	width: "600px",
+	boxShadow: "2px 2px 41px black",
+	padding: 8,
+};
 
 export const Section = (props) => {
 	const { children } = props;
@@ -82,7 +99,8 @@ const AboutSection = () => {
 					justifyContent: "center",
 					height: "100%",
 					width: "40%",
-					boxShadow: "4px 8px 4px white",
+					boxShadow: "2px 2px 18px black",
+					backdropFilter: "blur(8px)",
 				}}>
 				<Typography
 					variant='caption'
@@ -120,8 +138,8 @@ const Project = (props) => {
 				sx={{
 					display: "flex",
 					minWidth: 600,
-					maxHeight: 300,
-					backgroundColor: "orange",
+					maxHeight: 360,
+					backgroundColor: "#FFBB75",
 					padding: 2,
 					borderRadius: 4,
 					boxShadow: 4,
@@ -156,11 +174,7 @@ const Project = (props) => {
 							alignSelf: "center",
 							justifySelf: "center",
 						}}>
-						<Typography
-							variant='h4'
-							component='div'>
-							{props.title}
-						</Typography>
+						<Typography variant='h5'>{props.title}</Typography>
 						<Typography
 							variant='h5'
 							sx={{
@@ -216,7 +230,7 @@ const ProjectsSection = (props) => {
 				sx={{
 					flexDirection: "row",
 					border: "2px solid white",
-					padding: "18px",
+					padding: "4px",
 					marginBottom: "200px",
 					marginLeft: "1500px",
 					borderRadius: "30px",
@@ -225,13 +239,14 @@ const ProjectsSection = (props) => {
 					textAlign: "center",
 					justifyContent: "center",
 					alignItems: "center",
-					gap: 4,
-					height: "100%",
-					width: "35%",
-					boxShadow: "2px 2px 4px white",
+					padding: "8px",
+					height: "60%",
+					width: "40%",
+					boxShadow: "2px 2px 18px black",
 					flexWrap: "wrap",
 					overflow: "scroll",
 					overflowX: "hidden",
+					backdropFilter: "blur(8px)",
 				}}>
 				<Project
 					title='ActionAtlas: A Full Stack todolist'
@@ -249,19 +264,102 @@ const ProjectsSection = (props) => {
 					previewLink='https://action-atlas.vercel.app'
 					video='/videos/test1.mp4'
 				/>
+
+				<Project
+					title='ActionAtlas: A Full Stack todolist'
+					description='HTML | CSS | JavaScript | Node | Express | MongoDB'
+					image='/images/actionAtlas.png'
+					previewLink='https://action-atlas.vercel.app'
+					video='/videos/test2.mp4'
+				/>
 			</Box>
 		</Section>
 	);
 };
 
 const ContactSection = () => {
+	const ContactButton = (props) => {
+		const { text, icon, link } = props;
+		return (
+			<Button
+				{...props}
+				onClick={() => window.open(link)}
+				sx={{
+					width: "65%",
+					height: "100px",
+					backgroundColor: "#111827",
+					color: "white",
+					fontSize: "1.5rem",
+					fontWeight: "bold",
+					boxShadow: "2px 18px 20px black",
+					borderRadius: "35px",
+					border: "2px solid white",
+					gap: 1,
+					":hover": {
+						backgroundColor: "#a78bfa",
+						color: "black",
+					},
+				}}>
+				{icon}
+				{text}
+			</Button>
+		);
+	};
 	return (
 		<Section
 			id='contactSection'
 			styles={
 				"items-center text-4xl text-white font-bold justify-center  w-2/3 "
 			}>
-			<h1>Contact</h1>
+			<Box
+				display='flex'
+				sx={{
+					border: "2px solid white",
+					marginBottom: "200px",
+					borderRadius: "30px",
+					backgroundColor: "rgba(1, 10, 255, 0.1)",
+					backdropFilter: "blur(8px)",
+					textAlign: "center",
+					justifyContent: "center",
+					height: "fit-content",
+					width: "600px",
+					boxShadow: "2px 2px 41px black",
+				}}>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+						width: "100%",
+						height: "100%",
+						gap: 4,
+						padding: 8,
+					}}>
+					<ContactButton
+						icon={<i className='fa-brands fa-twitter'></i>}
+						text={"Twitter"}
+						link={"https://twitter.com/Same_TeeJay"}
+					/>
+					<ContactButton
+						icon={<i className='fa-brands fa-github'></i>}
+						text={"GitHub"}
+						link={" https://github.com/sametj"}
+					/>
+					<ContactButton
+						icon={<i className='fa-brands fa-linkedin'></i>}
+						text={"LinkedIn"}
+						link={"https://www.linkedin.com/in/temitope-james/"}
+					/>
+					<ContactButton
+						icon={<EmailIcon />}
+						text={"Email"}
+						link={
+							"mailto:mailto:temitope.james@mail.citytech.cuny.edu"
+						}
+					/>
+				</Box>
+			</Box>
 		</Section>
 	);
 };
