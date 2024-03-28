@@ -34,7 +34,7 @@ export default function App() {
 					args={["#9A85E7", 12, 35]}
 				/>
 				<ScrollControls
-					pages={4}
+					pages={3.9}
 					damping={1}>
 					<Scroll html>
 						<VideoContext.Provider value={setVideo}>

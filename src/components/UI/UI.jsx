@@ -8,24 +8,9 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import PreviewIcon from "@mui/icons-material/Preview";
 import Button from "@mui/material/Button";
 import EmailIcon from "@mui/icons-material/Email";
-import Modal from "@mui/material/Modal";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import Container from "@mui/material/Container";
 import { useContext, useState } from "react";
 import { VideoContext } from "../../App";
-
-const boxStyle = {
-	border: "2px solid white",
-	marginBottom: "200px",
-	borderRadius: "30px",
-	backgroundColor: "rgba(1, 10, 255, 0.1)",
-	backdropFilter: "blur(8px)",
-	textAlign: "center",
-	justifyContent: "center",
-	height: "fit-content",
-	width: "600px",
-	boxShadow: "2px 2px 41px black",
-	padding: 8,
-};
 
 export const Section = (props) => {
 	const { children } = props;
@@ -82,47 +67,123 @@ const WelcomeSection = () => {
 };
 
 const AboutSection = () => {
+	const [header, setHeader] = useState("Intro");
+
+	const introContent = `I am a Full Stack Developer with a passion for creating web applications that are both visually appealing and functional. I have experience working with HTML, 
+	CSS, JavaScript, Node, Express, and MongoDB. I am currently learning React to further my skills in front-end development.`;
+	const [displayContent, setdisplayContent] = useState(introContent);
+
+	const EducationContent = `I am currently a student at New York City College of Technology, pursuing a Bachelor's degree in Computer Science. I have taken courses in Data Structures,`;
+
+	const AboutSectionButton = (props) => {
+		return (
+			<Button
+				onClick={() => {
+					setHeader(props.text);
+					setdisplayContent(props.content);
+				}}
+				sx={{
+					backgroundColor: "#111827",
+					color: "white",
+					fontSize: "1.5rem",
+					fontWeight: "bold",
+					boxShadow: "2px 18px 20px black",
+					borderRadius: "18px",
+					border: "2px solid white",
+					gap: 1,
+					":hover": {
+						backgroundColor: "#a78bfa",
+						color: "black",
+					},
+				}}>
+				{props.text}
+			</Button>
+		);
+	};
+
+	const ContentBox = (props) => {
+		return (
+			<Box
+				{...props}
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					backgroundColor: "#111827",
+					color: "white",
+					fontSize: "1.5rem",
+					fontWeight: "bold",
+					padding: "8px",
+					borderRadius: "10px",
+					border: "2px solid white",
+					gap: 1,
+				}}>
+				{props.content || props.text}
+			</Box>
+		);
+	};
+
 	return (
 		<Section id='aboutSection'>
 			<Box
-				display='flex'
-				alignItems='center'
 				sx={{
+					display: "flex",
 					border: "2px solid white",
-					padding: "18px",
+					padding: "4px",
 					marginBottom: "200px",
-					marginLeft: "1500px",
 					borderRadius: "30px",
 					alignSelf: "end",
-					backgroundColor: "rgba(1, 10, 255, 0.1)",
 					textAlign: "center",
-					justifyContent: "center",
-					height: "100%",
-					width: "40%",
-					boxShadow: "2px 2px 18px black",
-					backdropFilter: "blur(8px)",
+					alignItems: "start",
+					padding: "8px",
+					height: "60%",
+					width: "60%",
+					gap: 1,
 				}}>
-				<Typography
-					variant='caption'
-					mt={2}
+				<Box
 					sx={{
-						fontSize: "1.5rem",
-						color: "white",
-						textShadow: "2px 2px 2px black",
+						display: "flex",
+						flexDirection: "column",
+						padding: "18px",
+						borderRadius: "10px",
 						textAlign: "center",
+						width: "30%",
+						backdropFilter: "blur(8px)",
+						gap: 1,
 					}}>
-					Hello, My name is Temitope James / TJ, I am a current
-					student of computer systems technology at NYCCT with an
-					expected completion of my bachelor’s program in June 2024, I
-					have interned as a Database analyst for NYC Department of
-					Social Services. I currently volunteer as a teacher for
-					CodeNation, a non-profit organization that provides web
-					development courses to minority students. Throughout my
-					educational journey, I have acquired the skill of learning.
-					I am excited to be here today to highlight my skills and
-					provide more details about my candidacy for the Solution
-					Analyst - Software Engineer position at deloitte.
-				</Typography>
+					<AboutSectionButton
+						text='Intro'
+						content={introContent}
+					/>
+					<AboutSectionButton
+						text='Education'
+						content={EducationContent}
+					/>
+					<AboutSectionButton text='Experience' />
+					<AboutSectionButton text='Skills' />
+				</Box>
+				<Box
+					display='flex'
+					sx={{
+						flexDirection: "column",
+						border: "2px solid white",
+						padding: "18px",
+						borderRadius: "30px",
+						backgroundColor: "rgba(1, 10, 255, 0.1)",
+						textAlign: "center",
+						width: "70%",
+						justifySelf: "center",
+						alignSelf: "center",
+						maxHeight: "500px",
+						height: "100%",
+						boxShadow: "2px 2px 18px black",
+						backdropFilter: "blur(8px)",
+						gap: 8,
+					}}>
+					<ContentBox content={header} />
+					<ContentBox content={displayContent} />
+				</Box>
 			</Box>
 		</Section>
 	);
@@ -224,7 +285,9 @@ const Project = (props) => {
 };
 const ProjectsSection = (props) => {
 	return (
-		<Section id='projectsSection'>
+		<Section
+			id='projectsSection'
+			className='flex'>
 			<Box
 				display='flex'
 				sx={{
@@ -306,11 +369,7 @@ const ContactSection = () => {
 		);
 	};
 	return (
-		<Section
-			id='contactSection'
-			styles={
-				"items-center text-4xl text-white font-bold justify-center  w-2/3 "
-			}>
+		<Section id='contactSection'>
 			<Box
 				display='flex'
 				sx={{
@@ -324,6 +383,8 @@ const ContactSection = () => {
 					height: "fit-content",
 					width: "600px",
 					boxShadow: "2px 2px 41px black",
+					justifySelf: "center",
+					alignSelf: "center",
 				}}>
 				<Box
 					sx={{
